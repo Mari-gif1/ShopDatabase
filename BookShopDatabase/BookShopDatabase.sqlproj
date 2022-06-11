@@ -6,13 +6,13 @@
     <Name>BookShopDatabase</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{1b6ed1c1-2cd1-4ef2-b307-92537e0cf175}</ProjectGuid>
+    <ProjectGuid>{bc1a827d-3098-48f8-a159-562ec5dbee12}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>ShopDatabase</RootNamespace>
-    <AssemblyName>ShopDatabase</AssemblyName>
+    <RootNamespace>BookShopDatabase</RootNamespace>
+    <AssemblyName>BookShopDatabase</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -56,24 +56,39 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="StoredProcedures" />
-    <Folder Include="Tables" />
-    <Folder Include="Post_scripts" />
+    <Folder Include="PostScripts" />
+    <Folder Include="Stored_procedures" />
+    <Folder Include="Tables_" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="StoredProcedures\AddUser.sql" />
-    <Build Include="Tables\Books.sql" />
-    <None Include="Tables\BookShopDatabase.publish.xml" />
-    <None Include="Tables\BookShopDatabase_2.publish.xml" />
-    <PostDeploy Include="Post_scripts\InsertUser.sql" />
-    <Build Include="StoredProcedures\GetUsers.sql" />
-    <Build Include="StoredProcedures\UpdateUser.sql" />
+    <Build Include="PostScripts\InsertUser.sql" />
+    <Build Include="Stored_procedures\AddBook.sql" />
+    <Build Include="Stored_procedures\AddUser.sql" />
+    <Build Include="Stored_procedures\Buy.sql" />
+    <Build Include="Stored_procedures\DeleteBook.sql" />
+    <Build Include="Stored_procedures\DeleteUser.sql" />
+    <Build Include="Stored_procedures\GetBooksWithPicturesAndSeller.sql" />
+    <Build Include="Stored_procedures\GetSails.sql" />
+    <Build Include="Stored_procedures\GetUser.sql" />
+    <Build Include="Stored_procedures\GetUsers.sql" />
+    <Build Include="Stored_procedures\InsertDescription.sql" />
+    <Build Include="Stored_procedures\InsertPicture.sql" />
+    <Build Include="Stored_procedures\UpdateUser.sql" />
+    <Build Include="Tables_\Books.sql" />
+    <Build Include="Tables_\Description.sql" />
+    <Build Include="Tables_\Pictures.sql" />
+    <Build Include="Tables_\Sails.sql" />
+    <Build Include="Tables_\SellerBook.sql" />
+    <Build Include="Tables_\Sellers.sql" />
+    <Build Include="Tables_\Users.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Reserve.sql" />
-    <Build Include="Tables\SellerBook.sql" />
-    <Build Include="Tables\Sellers.sql" />
-    <Build Include="Tables\UserBookRate.sql" />
-    <Build Include="Tables\Users.sql" />
+    <Build Include="PostScripts\Script.PostDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tables_\BookShopDatabase.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostScripts\Script.PostDeployment2.sql" />
   </ItemGroup>
 </Project>
