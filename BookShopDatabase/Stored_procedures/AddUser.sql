@@ -5,12 +5,11 @@
 	@AccountNumber varchar(20),
 	@Balance SMALLMONEY,
 	@Address nvarchar(20),
-	@DateOfBirth datetime,
 	@Login varchar(20),
 	@Password varchar(20)
 
 AS
-	INSERT INTO Users([Name], [Surname], [AccountNumber], [Balance], [Address], [DateOfBirth], [Login], [Password])
-	VALUES(@Name, @Surname, @AccountNumber, @Balance, @Address, @DateOfBirth, @Login, @Password)
+	INSERT INTO Users([Name], [Surname], [AccountNumber], [Balance], [Address], [Login], [Password])
+	VALUES(@Name, @Surname, @AccountNumber, @Balance, @Address,  @Login, @Password)
 
 RETURN 

@@ -16,7 +16,7 @@ namespace DataAccessLayer.Data
                 using (SqlCommand command = connection.CreateCommand())
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = [dbo].[GetUsers];
+                    command.CommandText = "[dbo].[GetUsers]";
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -30,21 +30,19 @@ namespace DataAccessLayer.Data
                             int stdAccountNumber = reader.GetOrdinal("AccountNumber");
                             int stdBalance = reader.GetOrdinal("Balance");
                             int stdAddress = reader.GetOrdinal("Address");
-                            int stdDateOfBirth = reader.GetOrdinal("DateOfBirth");
 
                             while (reader.Read())
                             {
                                 users.Add(
-                                    item: new User
+                                    new User
                                     {
                                         Id = reader.GetInt32(stdId),
                                         Name = reader.GetString(stdName),
                                         Surname = reader.GetString(stdSurname),
                                         Email = reader.GetString(stdEmail),
                                         AccountNumber = reader.GetString(stdAccountNumber),
-                                        Balance = reader.GetInt32(stdBalance),
-                                        Address = reader.GetString(stdAddress),
-                                        DateOfBirth = reader.GetDateTime(stdDateOfBirth)
+                                        Balance = reader.GetDecimal(stdBalance),
+                                        Address = reader.GetString(stdAddress)
                                     });
                             }
                         }
@@ -86,9 +84,8 @@ namespace DataAccessLayer.Data
                                 user.Surname = reader.GetString(stdSurname);
                                 user.Email = reader.GetString(stdEmail);
                                 user.AccountNumber = reader.GetString(stdAccountNumber);
-                                user.Balance = reader.GetInt32(stdBalance);
+                                user.Balance = reader.GetDecimal(stdBalance);
                                 user.Address = reader.GetString(stdAddress);
-                                user.DateOfBirth = reader.GetDateTime(stdDateOfBirth);
                             }
                         }
 
@@ -112,10 +109,8 @@ namespace DataAccessLayer.Data
                     command.Parameters.Add("@Surname", SqlDbType.NVarChar).Value = user.Surname;
                     command.Parameters.Add("@Email", SqlDbType.VarChar).Value = user.Email;
                     command.Parameters.Add("@AccountNumber", SqlDbType.VarChar).Value = user.AccountNumber;
-                    command.Parameters.Add("@Balance", SqlDbType.Int).Value = user.Balance;
+                    command.Parameters.Add("@Balance", SqlDbType.Decimal).Value = user.Balance;
                     command.Parameters.Add("@Address", SqlDbType.NVarChar).Value = user.Address;
-                    command.Parameters.Add("@DateOfBirth", SqlDbType.DateTime).Value = user.DateOfBirth;
-
 
                     SqlParameter id = new SqlParameter("@id", SqlDbType.Int);
                     id.Direction = ParameterDirection.Output;
@@ -143,7 +138,6 @@ namespace DataAccessLayer.Data
                     command.Parameters.Add("@AccountNumber", SqlDbType.VarChar).Value = user.AccountNumber;
                     command.Parameters.Add("@Balance", SqlDbType.Int).Value = user.Balance;
                     command.Parameters.Add("@Address", SqlDbType.NVarChar).Value = user.Address;
-                    command.Parameters.Add("@DateOfBirth", SqlDbType.DateTime).Value = user.DateOfBirth;
 
                     command.ExecuteNonQuery();
                 }
