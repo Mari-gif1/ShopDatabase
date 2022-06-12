@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[GetBooksWithPicturesAndSeller]
 AS
-	SELECT [Books].Id, [Books].Title, [Books].Author, [Books].Cost, [Books].Genre,[Sellers].[Name], [Books].PublishDate
+	SELECT [Books].Id as Id, [Books].Title as Title, [Books].Author as Author, [Books].Cost as Cost, [Pictures].Source, [Books].Genre as Genre,[Sellers].[Name] as SellerName, [Books].PublishYear as PublishDate
 	FROM [Books]
 	join [Pictures] on Pictures.BookId = Books.Id
 	join [SellerBook] on [Books].Id = [SellerBook].[BookId]

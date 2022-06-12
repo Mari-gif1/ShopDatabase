@@ -5,6 +5,6 @@
     [Cost]			MONEY			NOT NULL,
 	[Genre]			NVARCHAR(30)	NOT NULL,
 	[Author]		NVARCHAR(100)	NOT NULL,
-	[PublishDate]	DATETIME		NOT NULL,
+	[PublishYear]	INT				NOT NULL,
 	CONSTRAINT Pr_ItemId PRIMARY KEY([Id])
 )
