@@ -1,4 +1,4 @@
-﻿@page "/books/create/"
+﻿@*@page "/books/create/"
 @attribute [Authorize(Roles = "Administrator")]
 
 @inject IBookRepository _repo
@@ -137,3 +137,4 @@
         _navManager.NavigateTo("/books/");
     }
 }
+*@

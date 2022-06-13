@@ -44,11 +44,11 @@ else
                 @foreach (var book in Model)
                 {
                     <tr>
-                        <td>
+                        @*<td>
                             <img src="uploads/@book.Image" class="img-thumbnail" style="height:100px;width:100px" />
-                        </td>
+                        </td>*@
                         <td>@book.Title</td>
-                        <td>@string.Format("{0:C}", book.Price)</td>
+                        <td>@string.Format("{0:C}", book.Cost)</td>
                         <td>
                             @if (@book.Author == null)
                             {
@@ -56,7 +56,7 @@ else
                             }
                             else
                             {
-                                <span>@book.Author.Firstname @book.Author.Lastname </span>
+                                <span>@book.Author </span>
                             }
                         </td>
                         <td>
