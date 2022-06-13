@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿ using AutoMapper;
 using BookShopApiLayer.Models;
 using DataAccessLayer.Models;
 
@@ -8,7 +8,8 @@ namespace BookShopApiLayer
     {
         public AutoMapperProfile()
         {
-
+            CreateMap<UserModel, User>();
+            CreateMap<User, UserModel>();
         }
     }
 }
