@@ -32,15 +32,15 @@ namespace BookShopApiLayer.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<BookModel> GetBook([FromBody] int id)
+        public BookModel GetBook([FromBody] int id)
         {
             var user = _bookShopRep.GetUser(id);
             if (user is null)
             {
-                return NotFound();
+                return null;
             }
 
-            return Ok(_mapper.Map<BookModel>(_bookShopRep.GetBook(id)));
+            return _mapper.Map<BookModel>(_bookShopRep.GetBook(id));
         }
     }
 }
