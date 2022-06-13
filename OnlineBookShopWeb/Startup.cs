@@ -48,6 +48,7 @@ namespace OnlineBookShopWeb
             services.AddTransient<IAuthorRepository, AuthorRepository>();
             services.AddTransient<IBookRepository, BookRepository>();
             services.AddTransient<IFileUpload, FileUpload>();
+            Configurations.BlobStorageConnectionString = Configuration["BlobStorge"];
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

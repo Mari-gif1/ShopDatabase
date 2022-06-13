@@ -175,6 +175,7 @@ namespace DataAccessLayer.Data
                             int stdCost = reader.GetOrdinal("Cost");
                             int stdGenre = reader.GetOrdinal("Genre");
                             int stdPublishDate = reader.GetOrdinal("PublishYear");
+                            int userImageUrl = reader.GetOrdinal("ImageURL");
 
                             while (reader.Read())
                             {
@@ -186,7 +187,8 @@ namespace DataAccessLayer.Data
                                         Author = reader.GetString(stdAuthor),
                                         Cost = reader.GetDecimal(stdCost),
                                         Genre = reader.GetString(stdGenre),
-                                        PublishYear = reader.GetInt32(stdPublishDate)
+                                        PublishYear = reader.GetInt32(stdPublishDate),
+                                        ImageUrl = reader.IsDBNull(userImageUrl) ? default : reader.GetString(userImageUrl)
                                     });
                             }
                         }
@@ -210,7 +212,8 @@ namespace DataAccessLayer.Data
                     command.Parameters.Add("@Genre", SqlDbType.VarChar).Value = user.Genre;
                     command.Parameters.Add("@Cost", SqlDbType.Money).Value = user.Cost;
                     command.Parameters.Add("@PublishYear", SqlDbType.Int).Value = user.PublishYear;
-                    
+                    command.Parameters.Add("@imageUrl", SqlDbType.VarChar).Value = user.ImageUrl;
+
                     return command.ExecuteNonQuery();
                 }
             }

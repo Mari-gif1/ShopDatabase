@@ -22,6 +22,7 @@ namespace DataAccessLayer.Models
         public string SellerName { get; set; }
 
         public int PublishYear { get; set; }
+        public string ImageUrl { get; set; }
 
     }
 }

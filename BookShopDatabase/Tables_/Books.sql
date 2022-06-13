@@ -6,5 +6,6 @@
 	[Genre]			NVARCHAR(30)	NOT NULL,
 	[Author]		NVARCHAR(100)	NOT NULL,
 	[PublishYear]	INT				NOT NULL,
+	[ImageURL]		VARCHAR(2048)	NULL, 
 	CONSTRAINT Pr_ItemId PRIMARY KEY([Id])
 )
