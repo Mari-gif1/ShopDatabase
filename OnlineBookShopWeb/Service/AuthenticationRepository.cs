@@ -46,17 +46,17 @@ namespace OnlineBookShopWeb.Service
             }
 
             var content = await response.Content.ReadAsStringAsync();
-            var token = JsonConvert.DeserializeObject<TokenResponse>(content);
+            //var token = JsonConvert.DeserializeObject<TokenResponse>(content);
 
             //Store Token
-            await _localStorage.SetItemAsync("authToken", token.Token);
+            await _localStorage.SetItemAsync("authToken", content);
 
             //Change auth state of app
             await ((ApiAuthenticationStateProvider)_authenticationStateProvider)
                 .LoggedIn();
 
             client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("bearer", token.Token);
+                new AuthenticationHeaderValue("bearer", content);
 
             return true;
         }

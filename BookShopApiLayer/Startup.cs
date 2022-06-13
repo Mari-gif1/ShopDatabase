@@ -45,6 +45,7 @@ namespace BookShopApiLayer
                     };
                 });
             services.AddMvc();
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddScoped<IBookShopRepository, BookShopRepository>();
             services.AddSwaggerGen(c =>

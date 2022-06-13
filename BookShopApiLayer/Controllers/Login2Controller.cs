@@ -38,8 +38,8 @@ namespace BookShopApiLayer.Controllers
 
         private UserModel Authenticate(UserLogin userLogin)
         {
-            var currentUser = UserConstants.users.FirstOrDefault(o => o.UserName.ToLower() ==
-            userLogin.UserName.ToLower() && o.Password == userLogin.Password);
+            var currentUser = UserConstants.users.FirstOrDefault(o => o.EmailAddress.ToLower() ==
+            userLogin.EmailAddress.ToLower() && o.Password == userLogin.Password);
             if (currentUser != null)
             {
                 return currentUser;
@@ -55,7 +55,7 @@ namespace BookShopApiLayer.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Email, user.EmailAddress),
                 new Claim(ClaimTypes.GivenName, user.GivenName),
                 new Claim(ClaimTypes.Surname, user.Surname),
                 new Claim(ClaimTypes.Role, user.Role)

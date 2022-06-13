@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Data;
+﻿using AutoMapper;
+using BookShopApiLayer.Models;
+using DataAccessLayer.Data;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,21 +12,23 @@ namespace BookShopApiLayer.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly IMapper mapper;
         private readonly IBookShopRepository _bookShopRep;
 
-        public UsersController(IBookShopRepository dataRepository)
+        public UsersController(IMapper mapper ,IBookShopRepository dataRepository)
         {
+            this.mapper = mapper;
             _bookShopRep = dataRepository;
         }
 
         [HttpGet]
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<UserModel> GetUsers()
         {
-            return _bookShopRep.GetUsers();
+            return mapper.Map<IEnumerable<UserModel>>(_bookShopRep.GetUsers());
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<User> GetUser(int id)
+        public ActionResult<UserModel> GetUser(int id)
         {
             var user = _bookShopRep.GetUser(id);
             if (user is null)
@@ -32,22 +36,22 @@ namespace BookShopApiLayer.Controllers
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(mapper.Map<UserModel>(_bookShopRep.GetUsers()));
         }
 
         [HttpPost]
-        public ActionResult PostUser([FromBody] User user)
+        public ActionResult PostUser([FromBody] UserModel user)
         {
-            user.Id = _bookShopRep.AddUser(user);
-
+            user.Id = _bookShopRep.AddUser(mapper.Map<User>(user));
+             
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user.Id);
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult UpdateUser(int id, User user)
+        public ActionResult UpdateUser(int id, UserModel user)
         {
             user.Id = id;
-            _bookShopRep.UpdateUser(user);
+            _bookShopRep.UpdateUser(mapper.Map<User>(user));
             return Ok();
         }
 

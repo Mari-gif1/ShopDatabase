@@ -8,14 +8,15 @@ namespace DataAccessLayer.Models
 {
 	public class User
 	{
-		public int Id { get; set; }
-		public string Name { get; set; }
-		public string Surname { get; set; }
-		public string Email { get; set; }
-		public string AccountNumber { get; set; }
-		public Decimal Balance { get; set; }
-		public string Address { get; set; }
-		public User()
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+        public string EmailAddress { get; set; }
+        public string Role { get; set; }
+        public string Surname { get; set; }
+        public string GivenName { get; set; }
+        public User() 
 		{
 
 		}
