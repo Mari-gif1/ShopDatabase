@@ -1,4 +1,7 @@
-﻿using BookShopApiLayer.Models;
+﻿using AutoMapper;
+using BookShopApiLayer.Models;
+using DataAccessLayer.Data;
+using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +20,13 @@ namespace BookShopApiLayer.Controllers
     public class LoginController : ControllerBase
     {
         private IConfiguration _config;
-
-        public LoginController(IConfiguration config)
+        private readonly IMapper _mapper;
+        private readonly IBookShopRepository _bookShopRep;
+        public LoginController(IConfiguration config, IMapper mapper, IBookShopRepository bookShopRep)
         {
             _config = config;
+            _mapper = mapper;
+            _bookShopRep = bookShopRep;
         }
 
         [AllowAnonymous]
@@ -38,8 +44,13 @@ namespace BookShopApiLayer.Controllers
 
         private UserModel Authenticate(UserLogin userLogin)
         {
-            var currentUser = UserConstants.users.FirstOrDefault(o => o.EmailAddress.ToLower() ==
-            userLogin.EmailAddress.ToLower() && o.Password == userLogin.Password);
+            //var currentUser = UserConstants.users.FirstOrDefault(o => o.EmailAddress.ToLower() ==
+            //userLogin.EmailAddress.ToLower() && o.Password == userLogin.Password);
+            //if (currentUser != null)
+            //{
+            //    return currentUser;
+            //}
+            UserModel currentUser = _mapper.Map<UserModel>(_bookShopRep.GetUserWithEmailAndPassword(_mapper.Map<UserSignIn>(userLogin)));
             if (currentUser != null)
             {
                 return currentUser;

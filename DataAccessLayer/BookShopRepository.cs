@@ -212,9 +212,94 @@ namespace DataAccessLayer.Data
                     command.Parameters.Add("@Genre", SqlDbType.VarChar).Value = user.Genre;
                     command.Parameters.Add("@Cost", SqlDbType.Money).Value = user.Cost;
                     command.Parameters.Add("@PublishYear", SqlDbType.Int).Value = user.PublishYear;
-                    //command.Parameters.Add("@imageUrl", SqlDbType.VarChar).Value = user.ImageUrl;
+                    command.Parameters.Add("@imageUrl", SqlDbType.VarChar).Value = user.ImageUrl;
 
                     return command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public User GetUserWithEmailAndPassword(UserSignIn userSignIn)
+        {
+            using (SqlConnection connection = ConnectionManager.CreateConnection())
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "[dbo].[GetUserWithEmailAndPassword]";
+                    command.Parameters.Add("@EmailAddress", SqlDbType.VarChar).Value = userSignIn.EmailAddress;
+                    command.Parameters.Add("@Password", SqlDbType.VarChar).Value = userSignIn.Password;
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        var user = new User();
+                        if (reader.HasRows)
+                        {
+                            int stdId = reader.GetOrdinal("Id");
+                            int stdName = reader.GetOrdinal("UserName");
+                            int stdPassword = reader.GetOrdinal("Password");
+                            int stdEmail = reader.GetOrdinal("EmailAddress");
+                            int stdRole = reader.GetOrdinal("Role");
+                            int stdSurname = reader.GetOrdinal("Surname");
+                            int stdgivenName = reader.GetOrdinal("GivenName");
+
+                            while (reader.Read())
+                            {
+                                user.Id = reader.GetInt32(stdId);
+                                user.UserName = reader.GetString(stdName);
+                                user.Password = reader.GetString(stdSurname);
+                                user.EmailAddress = reader.GetString(stdEmail);
+                                user.Role = reader.GetString(stdRole);
+                                user.Surname = reader.GetString(stdSurname);
+                                user.GivenName = reader.GetString(stdgivenName);
+                            }
+                        }
+
+                        return user;
+                    }
+                }
+            }
+        }
+
+        public Books GetBook(int id)
+        {
+            using (SqlConnection connection = ConnectionManager.CreateConnection())
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "[dbo].[GetBook]";
+                    command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        var book = new Books();
+                        if (reader.HasRows)
+                        {
+                            int stdId = reader.GetOrdinal("Id");
+                            int stdTitle = reader.GetOrdinal("Title");
+                            int stdCost = reader.GetOrdinal("Cost");
+                            int stdGenre = reader.GetOrdinal("Genre");
+                            int stdAuthor = reader.GetOrdinal("Author");
+                            int stdPublishYear = reader.GetOrdinal("PublishYear");
+                            int stdImageURL = reader.GetOrdinal("ImageURL");
+
+                            while (reader.Read())
+                            {
+                                book.Id = reader.GetInt32(stdId);
+                                book.Title = reader.GetString(stdTitle);
+                                book.Cost = reader.GetDecimal(stdCost);
+                                book.Genre = reader.GetString(stdGenre);
+                                book.Author = reader.GetString(stdAuthor);
+                                book.PublishYear = reader.GetInt32(stdPublishYear);
+                                book.ImageUrl = reader.GetString(stdImageURL);
+                            }
+                        }
+
+                        return book;
+                    }
                 }
             }
         }

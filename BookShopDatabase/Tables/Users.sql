@@ -6,5 +6,6 @@
 	[Role]				VARCHAR(20)			NULL,
 	[Surname]				NVARCHAR(30)        NOT NULL,
 	[GivenName]			NVARCHAR(20)		NOT NULL,
-	CONSTRAINT PK_UerId		PRIMARY KEY (Id)
+	CONSTRAINT PK_UerId		PRIMARY KEY (Id),
+	CONSTRAINT UQ_EmailPass UNIQUE ([EmailAddress], [Password])
 );

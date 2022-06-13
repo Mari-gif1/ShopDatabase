@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataAccessLayer.Models
+namespace BookShopApiLayer.Models
 {
-    public class Books
+    public class BookModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
 
         public string Author { get; set; }
 
-        public Decimal Cost  { get; set; }
+        public Decimal Cost { get; set; }
 
         public string PictureUrl { get; set; }
 
@@ -23,10 +19,5 @@ namespace DataAccessLayer.Models
 
         public int PublishYear { get; set; }
         public string ImageUrl { get; set; }
-        public Books()
-        {
-
-        }
-
     }
 }

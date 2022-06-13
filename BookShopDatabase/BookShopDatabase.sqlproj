@@ -84,6 +84,8 @@
     <Build Include="Tables\Sellers.sql" />
     <Build Include="Tables\Books.sql" />
     <Build Include="Tables\Users.sql" />
+    <Build Include="StoredProcedures\GetUserWithEmailAndPassword.sql" />
+    <Build Include="StoredProcedures\GetBook.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BookShopDatabase.publish.xml" />

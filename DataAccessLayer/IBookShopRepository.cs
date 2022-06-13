@@ -18,5 +18,9 @@ namespace DataAccessLayer.Data
         public IEnumerable<Books> GetBooksWithPicturesAndSellers();
 
         public int AddBook(Books user);
+
+        public User GetUserWithEmailAndPassword(UserSignIn userSignIn);
+
+        public Books GetBook(int id);
     }
 }

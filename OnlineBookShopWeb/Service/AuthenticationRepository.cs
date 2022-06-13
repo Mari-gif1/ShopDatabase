@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace OnlineBookShopWeb.Service
 {
@@ -70,6 +71,8 @@ namespace OnlineBookShopWeb.Service
 
         public async Task<bool> Register(RegistrationModel user)
         {
+            user.Password = getHashSha256(user.Password);
+            user.ConfirmPassword = getHashSha256(user.ConfirmPassword);
             var request = new HttpRequestMessage(HttpMethod.Post
                 , Endpoints.RegisterEndpoint);
             request.Content = new StringContent(JsonConvert.SerializeObject(user)
@@ -79,6 +82,19 @@ namespace OnlineBookShopWeb.Service
             HttpResponseMessage response = await client.SendAsync(request);
 
             return response.IsSuccessStatusCode;
+        }
+
+        public static string getHashSha256(string text)
+        {
+            byte[] bytes = Encoding.Unicode.GetBytes(text);
+            SHA256Managed hashstring = new SHA256Managed();
+            byte[] hash = hashstring.ComputeHash(bytes);
+            string hashString = string.Empty;
+            foreach (byte x in hash)
+            {
+                hashString += String.Format("{0:x2}", x);
+            }
+            return hashString;
         }
     }
 }

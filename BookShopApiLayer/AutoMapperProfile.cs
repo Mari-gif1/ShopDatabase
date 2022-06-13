@@ -10,6 +10,10 @@ namespace BookShopApiLayer
         {
             CreateMap<UserModel, User>();
             CreateMap<User, UserModel>();
+            CreateMap<UserSignIn, UserLogin>();
+            CreateMap<UserLogin, UserSignIn>();
+            CreateMap<BookModel, Books>();
+            CreateMap<Books, BookModel>();
         }
     }
 }

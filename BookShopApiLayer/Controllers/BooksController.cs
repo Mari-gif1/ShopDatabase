@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Data;
+﻿using AutoMapper;
+using BookShopApiLayer.Models;
+using DataAccessLayer.Data;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -10,10 +12,11 @@ namespace BookShopApiLayer.Controllers
     public class BooksController : Controller
     {
         private readonly IBookShopRepository _bookShopRep;
-
-        public BooksController(IBookShopRepository dataRepository)
+        private readonly IMapper _mapper;
+        public BooksController(IBookShopRepository dataRepository, IMapper mapper)
         {
             _bookShopRep = dataRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -26,6 +29,18 @@ namespace BookShopApiLayer.Controllers
         public IActionResult Login([FromBody] Books userLogin)
         {
             return Ok(_bookShopRep.AddBook(userLogin));
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<BookModel> GetBook([FromBody] int id)
+        {
+            var user = _bookShopRep.GetUser(id);
+            if (user is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<BookModel>(_bookShopRep.GetBook(id)));
         }
     }
 }
