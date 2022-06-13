@@ -1,4 +1,4 @@
-﻿@page "/books/delete/{Id}"
+﻿@*@page "/books/delete/{Id}"
 @attribute [Authorize(Roles = "Administrator")]
 
 @inject IBookRepository _repo
@@ -106,3 +106,4 @@ else
     }
 
 }
+*@

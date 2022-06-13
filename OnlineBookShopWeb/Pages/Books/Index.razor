@@ -1,5 +1,5 @@
 ﻿@page "/books/"
-@attribute [Authorize]
+@*@attribute [Authorize]*@
 
 @inject IBookRepository _repo
 @inject IToastService _toastService
@@ -13,12 +13,12 @@
 }
 else
 {
-    <AuthorizeView Roles="Administrator">
+@*    <AuthorizeView Roles="Administrator">*@
         <a href="/books/create" class="btn btn-primary">
             <span class="oi oi-plus"></span>
             Create New Book
         </a>
-    </AuthorizeView>
+@*    </AuthorizeView>*@
 
     <br />
     <br />
@@ -45,10 +45,10 @@ else
                 {
                     <tr>
                         <td>
-                            <img src="uploads/@book.Image" class="img-thumbnail" style="height:100px;width:100px" />
+                            <img style="max-width:100px; max-height:100px;" src="@book.Image" />
                         </td>
                         <td>@book.Title</td>
-                        <td>@string.Format("{0:C}", book.Price)</td>
+                        <td>@string.Format("{0:C}", book.Cost)</td>
                         <td>
                             @if (@book.Author == null)
                             {
@@ -56,21 +56,21 @@ else
                             }
                             else
                             {
-                                <span>@book.Author.Firstname @book.Author.Lastname </span>
+                                <span>@book.Author </span>
                             }
                         </td>
                         <td>
                             <a href="/books/view/@book.Id" class="btn btn-primary">
                                 <span class="oi oi-book"></span>
                             </a>
-                            <AuthorizeView Roles="Administrator">
+@*                            <AuthorizeView Roles="Administrator">*@
                                 <a href="/books/edit/@book.Id" class="btn btn-warning">
                                     <span class="oi oi-pencil"></span>
                                 </a>
                                 <a href="/books/delete/@book.Id" class="btn btn-danger">
                                     <span class="oi oi-delete"></span>
                                 </a>
-                            </AuthorizeView>
+@*                            </AuthorizeView>*@
                         </td>
                     </tr>
                 }
@@ -83,6 +83,8 @@ else
 
 @code {
     private IList<Book> Model;
+    
+    private IBrowserFile File;
 
     protected async override Task OnInitializedAsync()
     {

@@ -8,7 +8,7 @@ namespace OnlineBookShopWeb.Static
     public static class Endpoints
     {
 #if DEBUG
-        public static string BaseUrl = "http://localhost:5001/";
+        public static string BaseUrl = "https://localhost:5001/";
 #else
         public static string BaseUrl = "https://bookstore-api20201128151949.azurewebsites.net/";
 #endif
