@@ -1,4 +1,7 @@
-﻿using BookShopApiLayer.Models;
+﻿using AutoMapper;
+using BookShopApiLayer.Models;
+using DataAccessLayer.Data;
+using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -10,16 +13,19 @@ namespace BookShopApiLayer.Controllers
     public class RegisterController : ControllerBase
     {
         private IConfiguration _config;
-        public RegisterController(IConfiguration config)
+        private readonly IMapper _mapper;
+        private readonly IBookShopRepository _bookShopRep;
+        public RegisterController(IConfiguration config, IMapper mapper, IBookShopRepository dataRepository)
         {
             _config = config;
+            _mapper = mapper;
+            _bookShopRep = dataRepository;
         }
 
         [HttpPost]
-        public IActionResult Register([FromBody] UserModel userLogin)
+        public IActionResult Register([FromBody] UserModel user)
         {
-            UserConstants.users.Add(userLogin);
-            return Ok();
+             return Ok(_bookShopRep.AddUser(_mapper.Map<User>(user)));
         }
     }
 }

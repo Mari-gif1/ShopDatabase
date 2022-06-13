@@ -108,9 +108,9 @@ namespace DataAccessLayer.Data
                     command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = user.Password;
                     command.Parameters.Add("@EmailAddress", SqlDbType.VarChar).Value = user.EmailAddress;
                     command.Parameters.Add("@Role", SqlDbType.VarChar).Value = user.Role;
-                    command.Parameters.Add("@Surname", SqlDbType.Decimal).Value = user.Surname;
+                    command.Parameters.Add("@Surname", SqlDbType.NVarChar).Value = user.Surname;
                     command.Parameters.Add("@GivenName", SqlDbType.NVarChar).Value = user.GivenName;
-                    
+
                     return command.ExecuteNonQuery();
                 }
             }
@@ -212,7 +212,7 @@ namespace DataAccessLayer.Data
                     command.Parameters.Add("@Genre", SqlDbType.VarChar).Value = user.Genre;
                     command.Parameters.Add("@Cost", SqlDbType.Money).Value = user.Cost;
                     command.Parameters.Add("@PublishYear", SqlDbType.Int).Value = user.PublishYear;
-                    command.Parameters.Add("@imageUrl", SqlDbType.VarChar).Value = user.ImageUrl;
+                    //command.Parameters.Add("@imageUrl", SqlDbType.VarChar).Value = user.ImageUrl;
 
                     return command.ExecuteNonQuery();
                 }

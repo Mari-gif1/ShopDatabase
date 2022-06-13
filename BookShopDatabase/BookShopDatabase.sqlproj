@@ -77,15 +77,17 @@
     <Build Include="StoredProcedures\Buy.sql" />
     <Build Include="StoredProcedures\AddUser.sql" />
     <Build Include="StoredProcedures\AddBook.sql" />
-    <Build Include="Tables\Books.sql" />
     <Build Include="Tables\Description.sql" />
     <Build Include="Tables\Pictures.sql" />
     <Build Include="Tables\Sails.sql" />
     <Build Include="Tables\SellerBook.sql" />
     <Build Include="Tables\Sellers.sql" />
+    <Build Include="Tables\Books.sql" />
     <Build Include="Tables\Users.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BookShopDatabase.publish.xml" />
+    <None Include="BookShopDatabase_1.publish.xml" />
+    <None Include="BookShopDatabase_2.publish.xml" />
   </ItemGroup>
 </Project>
