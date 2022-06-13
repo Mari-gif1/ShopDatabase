@@ -85,4 +85,7 @@
     <Build Include="Tables\Sellers.sql" />
     <Build Include="Tables\Users.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="BookShopDatabase.publish.xml" />
+  </ItemGroup>
 </Project>
