@@ -81,12 +81,14 @@
     <Build Include="Tables_\SellerBook.sql" />
     <Build Include="Tables_\Sellers.sql" />
     <Build Include="Tables_\Users.sql" />
+    <Build Include="Stored_procedures\GetBooks.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="PostScripts\Script.PostDeployment1.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables_\BookShopDatabase.publish.xml" />
+    <None Include="BookShopDatabase.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostScripts\Script.PostDeployment2.sql" />

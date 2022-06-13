@@ -14,5 +14,9 @@ namespace DataAccessLayer.Data
         public void UpdateUser(User user);
 
         public void DeleteUser(int id);
+
+        public IEnumerable<Books> GetBooksWithPicturesAndSellers();
+
+        public int AddBook(Books user);
     }
 }

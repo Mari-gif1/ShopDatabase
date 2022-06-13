@@ -160,5 +160,66 @@ namespace DataAccessLayer.Data
                 }
             }
         }
+        public IEnumerable<Books> GetBooksWithPicturesAndSellers()
+        {
+            using (SqlConnection connection = ConnectionManager.CreateConnection())
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "[dbo].[GetBooks]";
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        var bookList = new List<Books>();
+                        if (reader.HasRows)
+                        {
+                            int stdId = reader.GetOrdinal("Id");
+                            int stdTitle = reader.GetOrdinal("Title");
+                            int stdAuthor = reader.GetOrdinal("Author");
+                            int stdCost = reader.GetOrdinal("Cost");
+                            int stdGenre = reader.GetOrdinal("Genre");
+                            int stdPublishDate = reader.GetOrdinal("PublishYear");
+
+                            while (reader.Read())
+                            {
+                                bookList.Add(
+                                    new Books
+                                    {
+                                        Id = reader.GetInt32(stdId),
+                                        Title = reader.GetString(stdTitle),
+                                        Author = reader.GetString(stdAuthor),
+                                        Cost = reader.GetDecimal(stdCost),
+                                        Genre = reader.GetString(stdGenre),
+                                        PublishYear = reader.GetInt32(stdPublishDate)
+                                    });
+                            }
+                        }
+                        return bookList;
+                    }
+                }
+            }
+        }
+        public int AddBook(Books user)
+        {
+            using (SqlConnection connection = ConnectionManager.CreateConnection())
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "[dbo].[AddBook]";
+
+                    command.Parameters.Add("@Title", SqlDbType.NVarChar).Value = user.Title;
+                    command.Parameters.Add("@Author", SqlDbType.NVarChar).Value = user.Author;
+                    command.Parameters.Add("@Genre", SqlDbType.VarChar).Value = user.Genre;
+                    command.Parameters.Add("@Cost", SqlDbType.Money).Value = user.Cost;
+                    command.Parameters.Add("@PublishYear", SqlDbType.Int).Value = user.PublishYear;
+                    
+                    return command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

@@ -3,8 +3,8 @@
 	@Cost money,
 	@Genre nvarchar(30),
 	@Author nvarchar(100),
-	@PublishDate datetime
+	@PublishYear int
 AS
-	INSERT INTO [Books]([Title], [Cost], [Genre], [Author], [PublishDate])
-	VALUES(@Title, @Cost, @Genre, @Author, @PublishDate)
-RETURN 0
+	INSERT INTO [Books]([Title], [Cost], [Genre], [Author], [PublishYear])
+	VALUES(@Title, @Cost, @Genre, @Author, @PublishYear)
+RETURN SCOPE_IDENTITY()
