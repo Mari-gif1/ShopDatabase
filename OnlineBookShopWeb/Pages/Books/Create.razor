@@ -44,6 +44,14 @@
         </select>*@
     </div>
     <div class="form-group">
+        <label for="genre">Genre</label>
+        <InputText @bind-Value="Model.Genre" class="form-control" id="genre" />
+    </div>
+    <div class="form-group">
+        <label for="publishyear">Publish Year</label>
+        <InputNumber @bind-Value="Model.PublishYear" class="form-control" id="year" />
+    </div>
+    <div class="form-group">
         <label for="bookcover">Book Cover Photo</label>
 @*        <InputFile OnChange="HandleFileSelection" />
         @if (isInvalidFileType)
@@ -68,6 +76,7 @@
 
 @code {
     private Book Model = new Book();
+    static int id = 0;
     private IList<Author> Authors;
     private IBrowserFile file;
     private bool isSuccess = true;
@@ -83,33 +92,32 @@
     }
 
     public async Task OnUpdate()
-    {
+       {
         try
         {
             if (File != null) 
             {
+                Configurations.BlobStorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=bookstorageazure;AccountKey=lUOl5SqmlZFjiAs1L5LtZe8y/wvmOUqLkpJBOLhxywYqZMyh9KWFKEoDGVO1Ytsj/D0EC2Dz+cUo+ASt+46w7w==;EndpointSuffix=core.windows.net";
                 CloudStorageAccount storage = CloudStorageAccount.Parse(Configurations.BlobStorageConnectionString);
                 CloudBlobClient client = storage.CreateCloudBlobClient();
 
-                CloudBlobContainer container = client.GetContainerReference("userimages");
+                CloudBlobContainer container = client.GetContainerReference("bookimages");
 
-                CloudBlockBlob blockBlob = container.GetBlockBlobReference($"image{Model.Id}");
+                CloudBlockBlob blockBlob = container.GetBlockBlobReference($"image{++id}");
+
                     
                 await blockBlob.UploadFromStreamAsync(File.OpenReadStream());
                 await blockBlob.SetStandardBlobTierAsync(StandardBlobTier.Cool);
 
                 if (!string.IsNullOrEmpty(blockBlob.Uri.ToString()))
                 {
-                    Model.Image = blockBlob.Uri.ToString();
+                    Model.ImageURL = blockBlob.Uri.ToString();
                 }
             }
                 
-            isSuccess = await _repo.Create(Endpoints.BooksEndpoint, Model);
-            if (isSuccess)
-            {
-                _toastService.ShowWarning("Author Updated Successfully", "");
-                BackToList();
-            }
+            await _repo.Create(Endpoints.BooksEndpoint, Model);
+            _toastService.ShowWarning("Author Updated Successfully", "");
+            BackToList();
         }
         catch (Exception ex) 
         {
@@ -129,7 +137,7 @@
 
                 await _fileUpload.UploadFile(msFile, picName);
 
-                Model.Image = picName;
+                Model.ImageURL = picName;
             }
 
             isSuccess = await _repo.Create(Endpoints.BooksEndpoint, Model);
